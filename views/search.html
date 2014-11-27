@@ -1,0 +1,85 @@
+<div class="container">
+	<nav>
+		<div class="searchInput">
+			<span>Chercher un criminel: </span>
+			<input type="text" ng-model="dataSearched" class="searchBar" placeHolder="search" autofocus>
+		</div>
+    <br/>
+		<div>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criminalModal" data-whatever="criminal">Ajouter un nouveau criminel au fichier de l'ENIB</button>
+		</div>
+	</nav>
+	<section id="listOfCriminal">
+		<h3>Listes des criminels</h3>
+		<ul class="criminal row">
+			<li ng-repeat="criminal in criminals" class="displayEachCriminal col-lg-3 col-md-4 col-sm-5 col-xs-6">
+				<!-- <table> -->
+          <!-- <aside>  -->
+            <img class="smallPicture img-rounded" src="./criminals/picture/{{criminal.picture}}">
+          <!-- </aside>
+					<a href="#/search/{{criminal.id}}">
+            <span>{{criminal.firstname}} {{criminal.lastname}}</span>
+            <p>Crime commit: {{criminal.offense}}</p>
+          </a>
+				</table> -->
+			</li>
+		</ul>
+	</section>
+</div>
+
+<div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Ajouter un criminel</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Nom:</label>
+            <input type="text" class="form-control" id="recipient-name" ng-model="criminal.lastname" required>
+          </div>
+          <div class="form-group">
+            <label for="recipient-firstname" class="control-label">Prénom:</label>
+            <input type="text" class="form-control" id="recipient-firstname" ng-model="criminal.firstname" required>
+          </div>
+          <div class="form-group">
+            <label for="date-of-birth" class="control-label">Date de naissance:</label>
+            <input type="text" class="form-control" id="recipient-name" ng-model="criminal.birthday" required>   
+          </div>
+          <div class="form-group">
+            <label for="date-of-birth" class="control-label">Sexe:</label><br/>
+            <input type="radio" ng-model="criminal.gender" value="male"/> Homme<br/>
+    		    <input type="radio" ng-model="criminal.gender" value="female"/> Femme
+          </div>     
+          <div class="form-group">
+            <label for="message-text" class="control-label">Photo:</label>
+            <input type="file" name="picture" accept="image/*" size="40">
+          </div>         
+          <div class="form-group">
+            <label for="message-text" class="control-label">Délit:</label>
+            <textarea class="form-control" id="message-text" ng-model="criminal.offense" required></textarea>
+          </div>
+  	      <div class="modal-footer">
+  	        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  	        <button type="submit" class="btn btn-primary" ng-click="savedata(criminal)" >Ajouter le criminel</button>
+  	      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="criminalLightDetail" tabindex="-1" role="dialog" aria-labelledby="criminalLightDetail" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Détail du profil du criminel {{criminalSelected.lastname}}</h4>
+      </div>       
+      <div class="modal-body"> 
+      </div>
+    </div>
+  </div>
+</div>

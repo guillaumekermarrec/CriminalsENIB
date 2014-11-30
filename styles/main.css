@@ -4,7 +4,7 @@ body {
   padding-bottom: 20px;
 }
 
-nav{
+.navigationBar{
   top: 100px;
   line-height:30px;
   height:100vh;
@@ -13,12 +13,12 @@ nav{
   position: fixed;
 }
 
-section{
+.sectionWrapper{
   margin-left: 400px;
   position: relative;
 }
 
-aside{
+.asideWrapper{
   width:20vw;
   float: left;
   height: auto;
@@ -84,7 +84,7 @@ ul li img {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 80vw;
+    max-width: 100%;
   }
 }
 .container-narrow > hr {

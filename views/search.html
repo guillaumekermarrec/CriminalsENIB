@@ -1,30 +1,37 @@
-<div class="container">
-	<nav>
+<div class="container wrapper animation">
+	<nav class="sidebar-wrapper animation">
 		<div class="searchInput">
-			<span>Chercher un criminel: </span>
-			<input type="text" ng-model="dataSearched" class="searchBar" placeHolder="search" autofocus>
+      <div class="sidebar-nav">
+        <span>Chercher un criminel: </span><br/><br/>
+        <input type="text" ng-model="dataSearched_Name" class="searchBar" placeHolder="Nom/Prénom" autofocus><br/><br/>
+        <input type="text" ng-model="dataSearched_Birth" class="searchBar" placeHolder="Date de naissance" autofocus><br/><br/>
+        <input type="text" ng-model="dataSearched_Size" class="searchBar" placeHolder="Taille" autofocus>   
+      <br/>   
+      </div>
 		</div>
-    <br/>
 		<div>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#criminalModal" data-whatever="criminal">Ajouter un nouveau criminel au fichier de l'ENIB</button>
 		</div>
 	</nav>
-	<section id="listOfCriminal">
-		<h3>Listes des criminels</h3>
-		<ul class="criminal row">
-			<li ng-repeat="criminal in criminals" class="displayEachCriminal col-lg-3 col-md-4 col-sm-5 col-xs-6">
-				<!-- <table> -->
-          <!-- <aside>  -->
-            <img class="smallPicture img-rounded" src="./criminals/picture/{{criminal.picture}}">
-          <!-- </aside>
-					<a href="#/search/{{criminal.id}}">
-            <span>{{criminal.firstname}} {{criminal.lastname}}</span>
-            <p>Crime commit: {{criminal.offense}}</p>
-          </a>
-				</table> -->
-			</li>
-		</ul>
-	</section>
+  <div class="headerContentWrapper">
+      <button id="menu-toggle" class="btn btn-primary">Rechercher un criminel</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#criminalModal" data-whatever="criminal">Ajouter un nouveau criminel au fichier de l'ENIB</button> 
+      <h3>Listes des criminels</h3>
+  </div>
+	<div id="listOfCriminal" class="page-content-wrapper">
+  		<ul class="criminal row">
+  			<li ng-repeat="criminal in criminals" class="displayEachCriminal col-lg-3 col-md-4 col-sm-5 col-xs-6">
+  				<!-- <table> -->
+            <!-- <aside>  -->
+              <img class="smallPicture img-rounded" src="./criminals/picture/{{criminal.picture}}">
+            <!-- </aside>
+  					<a href="#/search/{{criminal.id}}">
+              <span>{{criminal.firstname}} {{criminal.lastname}}</span>
+              <p>Crime commit: {{criminal.offense}}</p>
+            </a>
+  				</table> -->
+  			</li>
+  		</ul>
+	</div>
 </div>
 
 <div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">

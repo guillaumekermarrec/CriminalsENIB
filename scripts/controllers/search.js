@@ -21,6 +21,7 @@ angular
       $scope.criminals = data;  
 
       $(document).ready(function(){
+        console.log("Nombre d'élements-> "+$scope.criminals.length+" -- "+$scope.criminals[1].data)
         $(document.body).on('click','.smallPicture',function(){
               $scope.criminalSelected=$scope.criminals[$(".smallPicture").index(this)];
               $('#criminalLightDetail').modal();
@@ -44,5 +45,13 @@ angular
     $('#criminalModal').on('hidden.bs.modal', function(){
         $(this).find('form')[0].reset();
     });
+    $("#menu-toggle").click(function(e) {
+      console.log("element pressed")
+        e.preventDefault();
+        $(".wrapper").toggleClass("toggled");
+        $(".sidebar-wrapper").toggleClass("toggled");
+        $(".page-content-wrapper").toggleClass("toggled");
+    });
+
   }]);
 

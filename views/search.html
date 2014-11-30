@@ -1,3 +1,18 @@
+
+<div class="headerContentWrapper">
+    <button id="menu-toggle" class="btn btn-primary">Rechercher un criminel</button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a data-toggle="modal" data-target="#criminalModal" data-whatever="criminal">Ajouter un nouveau criminel au fichier de l'ENIB</a></li>
+        <li class="divider"></li>
+        <li><a>Modifier le profil</a></li>
+        <li><a>Déconnexion</a></li>
+      </ul>
+    </div>
+    <h3>Listes des criminels</h3>
+</div>
 <div class="container wrapper animation">
 	<nav class="sidebar-wrapper animation">
 		<div class="searchInput">
@@ -12,11 +27,6 @@
 		<div>
 		</div>
 	</nav>
-  <div class="headerContentWrapper">
-      <button id="menu-toggle" class="btn btn-primary">Rechercher un criminel</button>
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#criminalModal" data-whatever="criminal">Ajouter un nouveau criminel au fichier de l'ENIB</button> 
-      <h3>Listes des criminels</h3>
-  </div>
 	<div id="listOfCriminal" class="page-content-wrapper">
   		<ul class="criminal row">
   			<li ng-repeat="criminal in criminals" class="displayEachCriminal col-lg-3 col-md-4 col-sm-5 col-xs-6">

@@ -37,13 +37,9 @@ angular
          });
       });
       $scope.$watchCollection('search', function() {
-        console.log("Data Changed");
-      });
-      $scope.updateValueForm=function(){
         // Rechercher dans la BDD avec ces informations
-        console.log("Récupération des information du formulaire nom: "+$scope.dataSearched_Name+" Taille: "+$scope.dataSearched_Size);
-      }
-      console.log("data to search -> "+$scope.dataSearched_Name)
+        console.log("Récupération des information du formulaire nom: "+$scope.search.name+" Taille: "+$scope.search.size);
+      });
     });
     $('#criminalModal').on('hidden.bs.modal', function(){
         $(this).find('form')[0].reset();

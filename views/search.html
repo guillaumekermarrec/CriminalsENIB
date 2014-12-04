@@ -59,9 +59,15 @@
 	</div>
   <nav>
   <ul class="pagination">
-    <li><a href="#search"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-    <li><a href="#search">1</a></li>
-    <li><a href="#search"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+    <li ng-class="{disabled: currentPage == 0}">
+        <a href="#search" ng-click="prevPage()">« Prev</a>
+    </li>
+    <li ng-repeat="n in numberPageNeeded" ng-class="{active: n == currentPage}" ng-click="setPage()">
+        <a href="#search" ng-bind="n + 1">1</a>
+    </li>
+    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+        <a href="#search" ng-click="nextPage()">Next »</a>
+    </li>
   </ul>
 </nav>
 </div>

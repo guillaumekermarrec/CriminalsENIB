@@ -1,7 +1,6 @@
-
 <div class="headerContentWrapper">
     <button id="menu-toggle" class="btn btn-primary">Rechercher un criminel</button>
-    <div class="btn-group">
+    <div class="btn-group buttonZIndex">
       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
@@ -16,13 +15,21 @@
 	<nav class="sidebar-wrapper animation">
 		<div class="searchInput">
       <div class="sidebar-nav">
-        <h3>Chercher un criminel: </h3>
-        <label>Nom et/ou prénom:</label><br/>
-        <input type="text" ng-model="dataSearched_Name" class="searchBar" placeHolder="Nom/Prénom" autofocus><br/><br/>
-        <label>Date de naissance:</label><br/>
-        <input type="date" ng-model="dataSearched_Birth" class="searchBar"><br/><br/>
-        <label>Taille:</label><br/>
-        <input type="text" ng-model="dataSearched_Size" class="searchBar" placeHolder="cm">   
+        <form role="form" >
+          <h3>Chercher un criminel: </h3>
+          <div class="form-group">
+            <label>Nom et/ou prénom:</label><br/>
+            <input type="text" ng-model="search.name" class="searchBar" placeHolder="Nom/Prénom" autofocus><br/>
+          </div>
+          <div class="form-group">
+            <label>Date de naissance:</label><br/>
+            <input type="date" ng-model="search.birth" class="searchBar"><br/>
+          </div>
+          <div class="form-group">
+            <label>Taille:</label><br/>
+            <input type="text" ng-model="search.size" class="searchBar" placeHolder="cm">   
+          </div>
+        </form> 
       <br/>   
       </div>
 		</div>
@@ -46,7 +53,6 @@
   		</ul>
 	</div>
 </div>
-
 <div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -75,7 +81,7 @@
           </div>     
           <div class="form-group">
             <label for="message-text" class="control-label">Photo:</label>
-            <input type="file" name="picture" accept="image/*" size="40">
+            <input type="file" name="picture" accept="image/*" size="40" ng-model="criminal.picture">
           </div>         
           <div class="form-group">
             <label for="message-text" class="control-label">Délit:</label>

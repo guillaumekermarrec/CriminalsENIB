@@ -1,7 +1,5 @@
 'use strict';
 
-//var fs = require('fs');
-
 /**
  * @ngdoc function
  * @name projetApp.controller:SearchCtrl
@@ -12,10 +10,11 @@
 angular
   .module('projetApp')
   .controller('SearchCtrl',['$scope','$http',function ($scope, $http) {
+    $scope.searchingData = {};
     $scope.savedata=function(criminal){
+      console.log(criminal);
     	$scope.criminals.push(angular.copy(criminal));
       $('#criminalModal').modal('hide');
-      //Necessite une sauvegarde du fichier json
     };
     $http.get('criminals/criminals.json').success(function(data) {
       $scope.criminals = data;  
@@ -36,22 +35,23 @@ angular
                   $scope.indexValue=-1;
               });
          });
-      });    
-      // fs.appendFile('criminals/test.json', data, function (err) {
-      //   if (err) throw err;
-      //   console.log('The "data to append" was appended to file!');
-      // });
+      });
+      $scope.$watchCollection('search', function() {
+        console.log("Data Changed");
+      });
+      $scope.updateValueForm=function(){
+        // Rechercher dans la BDD avec ces informations
+        console.log("Récupération des information du formulaire nom: "+$scope.dataSearched_Name+" Taille: "+$scope.dataSearched_Size);
+      }
+      console.log("data to search -> "+$scope.dataSearched_Name)
     });
     $('#criminalModal').on('hidden.bs.modal', function(){
         $(this).find('form')[0].reset();
     });
     $("#menu-toggle").click(function(e) {
-      console.log("element pressed")
         e.preventDefault();
         $(".wrapper").toggleClass("toggled");
         $(".sidebar-wrapper").toggleClass("toggled");
         $(".page-content-wrapper").toggleClass("toggled");
     });
-
   }]);
-

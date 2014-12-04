@@ -23,10 +23,6 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
       .when('/search', {
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
@@ -34,10 +30,6 @@ angular
       .when('/search/:criminalID', {
         templateUrl: 'views/criminal.html',
         controller: 'CriminalCtrl'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl'
       })
       .otherwise({
         redirectTo: '/'

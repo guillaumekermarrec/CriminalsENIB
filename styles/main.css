@@ -24,6 +24,10 @@ body {
   height: auto;
 }
 
+.buttonZIndex{
+  z-index: 2;
+}
+
 li{
   list-style-type: none; 
 }
@@ -84,7 +88,7 @@ ul li img {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
 .container-narrow > hr {
@@ -102,12 +106,12 @@ ul li img {
 }
 
 /* Supporting marketing content */
-.marketing {
+/*.marketing {
   margin: 40px 0;
 }
 .marketing p + h4 {
   margin-top: 28px;
-}
+}*/
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {

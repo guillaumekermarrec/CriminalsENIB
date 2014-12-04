@@ -27,7 +27,12 @@
           </div>
           <div class="form-group">
             <label>Taille:</label><br/>
-            <input type="number" ng-model="search.size" class="searchBar" placeHolder="cm">   
+            <input type="number" ng-model="search.size" class="searchBar" placeHolder="cm" onkeypress="return isNumberKey(event)">   
+          </div> 
+          <div class="progress">
+            <div id="SearchAccuracyBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': accuracyBarValue}">
+              Précision
+            </div>
           </div>
         </form> 
       <br/>   
@@ -52,6 +57,13 @@
   			</li>
   		</ul>
 	</div>
+  <nav>
+  <ul class="pagination">
+    <li><a href="#search"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+    <li><a href="#search">1</a></li>
+    <li><a href="#search"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+  </ul>
+</nav>
 </div>
 <div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">
   <div class="modal-dialog">

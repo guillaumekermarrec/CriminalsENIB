@@ -18,7 +18,7 @@ angular
     };
     $http.get('criminals/criminals.json').success(function(data) {
       $scope.criminals = data;  
-
+      $scope.accuracyBarValue='0%';
       $(document).ready(function(){
         console.log("Nombre d'élements-> "+$scope.criminals.length+" -- "+$scope.criminals[1].data)
         $(document.body).on('click','.smallPicture',function(){
@@ -39,6 +39,13 @@ angular
       $scope.$watchCollection('search', function() {
         // Rechercher dans la BDD avec ces informations
         console.log("Récupération des information du formulaire nom: "+$scope.search.name+" Taille: "+$scope.search.size);
+        var numberElementSearch=0;
+        for (var key in Object.keys($scope.search)) {
+          var valTmp=$scope.search[Object.keys($scope.search)[key]];
+          if(valTmp!='' && valTmp!=null) numberElementSearch++;
+        };
+        $scope.accuracyBarValue=numberElementSearch/3*100+"%";
+        console.log("$scope.accuracyBarValue-> "+$scope.accuracyBarValue);
       });
     });
     $('#criminalModal').on('hidden.bs.modal', function(){
@@ -51,3 +58,10 @@ angular
         $(".page-content-wrapper").toggleClass("toggled");
     });
   }]);
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}

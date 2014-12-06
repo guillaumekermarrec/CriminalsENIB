@@ -9,7 +9,7 @@
  */
 angular
   .module('projetApp')
-  .controller('SearchCtrl',['$scope','$http',function ($scope, $http) {
+  .controller('SearchCtrl',['$scope','$http',function ($scope, $http){
     $scope.searchingData = {};
 
     // Lorsque le chargement de la base de données a été chargée correctement
@@ -29,11 +29,22 @@ angular
       $scope.criminals = $scope.criminalsBackUp.slice(8*$scope.currentPage,8*($scope.currentPage+1));
       $scope.getPageNeeded();
 
+      //------------------------------------------------------------
+      //----------------------- Sauvegarde -------------------------
+      //------------------------------------------------------------
       // Cette fonction est appelée lorsque l'utilisateur clique sur sauvegarder lors de la création d'un criminel
       $scope.savedata=function(criminal){
+        // criminal est l'élément à sauvegarder dans la base de donénes.
+
+        // Pour le moment -> ajout dans la base de données locale. 
+        //------DEBUT A REMPLACER-----
         $scope.criminals.push(angular.copy(criminal));
+        //------FIN A REMPLACER-----
+
         //Permet de masquer le "pop-up" de création de criminel
         $('#criminalModal').modal('hide');
+        // Mise à jour les données
+        $scope.setThumbnails();
       };
 
       //------------------------------------------------------------

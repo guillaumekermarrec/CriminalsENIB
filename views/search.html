@@ -59,19 +59,19 @@
 	</div>
 </div>
 <div>
-<nav>
-  <ul class="pagination">
-    <li ng-class="{disabled: currentPage == 0}">
-        <a href="#search" ng-click="prevPage()">« Prev</a>
-    </li>
-    <li ng-repeat="n in numberPageNeeded" ng-class="{active: n == currentPage}" ng-click="setPage()">
-        <a href="#search" ng-bind="n + 1">1</a>
-    </li>
-    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-        <a href="#search" ng-click="nextPage()">Next »</a>
-    </li>
-  </ul>
-</nav>
+  <nav>
+    <ul class="pagination buttonZIndex">
+      <li ng-class="{disabled: currentPage == 0}">
+          <a href="#search" ng-click="prevPage()">« Prev</a>
+      </li>
+      <li ng-repeat="n in numberPageNeeded" ng-class="{active: n == currentPage}" ng-click="setPage()">
+          <a href="#search" ng-bind="n + 1">1</a>
+      </li>
+      <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+          <a href="#search" ng-click="nextPage()">Next »</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 <div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">
   <div class="modal-dialog">

@@ -11,22 +11,42 @@ angular
   .module('projetApp')
   .controller('SearchCtrl',['$scope','$http',function ($scope, $http) {
     $scope.searchingData = {};
+
+    // Lorsque le chargement de la base de données a été chargée correctement
     $http.get('criminals/criminals.json').success(function(data) {
+
+      //------------------------------------------------------------
+      //------------------------ Variables -------------------------
+      //------------------------------------------------------------
+      // Parametres utilisés par la pagination
       $scope.itemsPerPage = 8;      
       $scope.currentPage = 0;
       $scope.numberPageNeeded=[];
       $scope.criminalsBackUp = data;
+      // Bar de précision
+      $scope.accuracyBarValue='0%';
+      //Criminels à afficher en fonction de la page
       $scope.criminals = $scope.criminalsBackUp.slice(8*$scope.currentPage,8*($scope.currentPage+1));
       $scope.getPageNeeded();
+
+      // Cette fonction est appelée lorsque l'utilisateur clique sur sauvegarder lors de la création d'un criminel
       $scope.savedata=function(criminal){
         $scope.criminals.push(angular.copy(criminal));
+        //Permet de masquer le "pop-up" de création de criminel
         $('#criminalModal').modal('hide');
       };
-      $scope.accuracyBarValue='0%';
+
+      //------------------------------------------------------------
+      //------------------------- POP UP ---------------------------
+      //------------------------------------------------------------
+      // Fonction appelée lorsque la page web a fini son chargement
       $(document).ready(function(){
+        // Lorsque l'utilisateur clique sur une des photos de l'utilisateur
         $(document.body).on('click','.smallPicture',function(){
           $scope.criminalSelected=$scope.criminals[$(".smallPicture").index(this)];
+          // affichage d'un "pop-up" affichant des détails sur le criminel selectionné
           $('#criminalLightDetail').modal();
+          // Lors de l'affichage du pop-up, on ajoute dynamiquement les informations du criminel
           $('#criminalLightDetail').on('shown.bs.modal', function(){
             var dataToDisplay=
             '<h2>'+$scope.criminalSelected.firstname+' '+$scope.criminalSelected.lastname+'</h2>'+
@@ -34,24 +54,38 @@ angular
             '<a href="#/search/'+$scope.criminalSelected.id+'">Plus d\'information</a>';
             $('#criminalLightDetail .modal-body').html(dataToDisplay);
           });
+          // Permet de masque le "pop-up"
           $('#criminalLightDetail').on('hidden.bs.modal', function(){
               $scope.indexValue=-1;
           });
         });
       });
-      $scope.$watchCollection('search', function() {
-        // Rechercher dans la BDD avec ces informations
-        var numberElementSearch=0;
-        for (var key in Object.keys($scope.search)) {
-          var valTmp=$scope.search[Object.keys($scope.search)[key]];
-          if(valTmp!='' && valTmp!=null) numberElementSearch++;
-        };
-        $scope.accuracyBarValue=numberElementSearch/3*100+"%";
-      });
-    });
     $('#criminalModal').on('hidden.bs.modal', function(){
         $(this).find('form')[0].reset();
     });
+
+      //------------------------------------------------------------
+      //------------------ Champs de recherche ---------------------
+      //------------------------------------------------------------
+      // Fonction permettant de scruter les modifications apportées au formulaire de recherche
+      $scope.$watchCollection('search', function() {
+        // Rechercher dans la BDD avec ces informations
+        var numberElementSearch=0;
+        // La variable key indique l'indice de l'élement dans l'objet $scope.search
+        for (var key in Object.keys($scope.search)) {
+          // valTmp prend la valeur de la l'objet à un indice key donné
+          var valTmp=$scope.search[Object.keys($scope.search)[key]];
+          // renvoie le nombre d'élément dans l'objet
+          if(valTmp!='' && valTmp!=null) numberElementSearch++;
+        };
+        // mise à jour de la valeur de la bar de précision
+        $scope.accuracyBarValue=numberElementSearch/3*100+"%";
+      });
+    });
+
+    //------------------------------------------------------------
+    //--------------------- Menu latéral -------------------------
+    //------------------------------------------------------------
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $(".wrapper").toggleClass("toggled");
@@ -59,6 +93,9 @@ angular
         $(".page-content-wrapper").toggleClass("toggled");
     });
 
+    //------------------------------------------------------------
+    //---------------------- Pagination --------------------------
+    //------------------------------------------------------------
     $scope.prevPage = function () {
       if ($scope.currentPage > 0) {
           $scope.currentPage--;
@@ -91,6 +128,7 @@ angular
 
   }]);
 
+// permet d'interdire dans un champs les caractères autre que des chiffres
 function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))

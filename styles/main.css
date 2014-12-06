@@ -25,7 +25,7 @@ body {
 }
 
 .buttonZIndex{
-  z-index: 2;
+  z-index: 10;
 }
 
 li{

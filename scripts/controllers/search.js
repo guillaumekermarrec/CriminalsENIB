@@ -18,6 +18,7 @@ angular
       //------------------------------------------------------------
       //------------------------ Variables -------------------------
       //------------------------------------------------------------
+      $scope.search = new Object();
       // Parametres utilisés par la pagination
       $scope.itemsPerPage = 8;      
       $scope.currentPage = 0;
@@ -38,7 +39,7 @@ angular
 
         // Pour le moment -> ajout dans la base de données locale. 
         //------DEBUT A REMPLACER-----
-        $scope.criminals.push(angular.copy(criminal));
+        data.push(angular.copy(criminal));
         //------FIN A REMPLACER-----
 
         //Permet de masquer le "pop-up" de création de criminel
@@ -71,9 +72,10 @@ angular
           });
         });
       });
-    $('#criminalModal').on('hidden.bs.modal', function(){
-        $(this).find('form')[0].reset();
-    });
+
+      $('#criminalModal').on('hidden.bs.modal', function(){
+          $(this).find('form')[0].reset();
+      });
 
       //------------------------------------------------------------
       //------------------ Champs de recherche ---------------------
@@ -82,12 +84,14 @@ angular
       $scope.$watchCollection('search', function() {
         // Rechercher dans la BDD avec ces informations
         var numberElementSearch=0;
+        console.log($scope.search);
         // La variable key indique l'indice de l'élement dans l'objet $scope.search
         for (var key in Object.keys($scope.search)) {
           // valTmp prend la valeur de la l'objet à un indice key donné
           var valTmp=$scope.search[Object.keys($scope.search)[key]];
           // renvoie le nombre d'élément dans l'objet
           if(valTmp!='' && valTmp!=null) numberElementSearch++;
+          console.log("Champs de recherche-> "+valTmp);
         };
         // mise à jour de la valeur de la bar de précision
         $scope.accuracyBarValue=numberElementSearch/3*100+"%";
@@ -146,3 +150,13 @@ function isNumberKey(evt){
         return false;
     return true;
 }
+
+//------------------------------------------------------------
+//--------------------- Upload file --------------------------
+//------------------------------------------------------------
+// function upload() {
+//   document.getElementById('file_upload_form').onsubmit=function() {
+//     document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
+//   }
+// }
+// window.onload=upload;

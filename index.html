@@ -27,6 +27,8 @@
         <ul class="nav nav-pills pull-right">
           <li class="active"><a ng-href="#">Home</a></li>
           <li><a ng-href="#/search">Rechercher</a></li>
+          <li><a ng-href="#/login">Login</a></li> <!-- ng-hide is not logged -->
+          <li><a ng-href="#/logout">Logout</a></li>
         </ul>
         <h3 class="text-muted">ENIB</h3>
       </div>
@@ -59,7 +61,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -71,13 +73,12 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/search.js"></script>
-        <script src="scripts/controllers/contact.js"></script>
-        <script src="scripts/controllers/criminal.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js" type="text/javascript"></script>
+    <script src="scripts/controllers/main.js" type="text/javascript"></script>
+    <script src="scripts/controllers/search.js" type="text/javascript"></script>
+    <script src="scripts/controllers/criminal.js" type="text/javascript"></script>
+    <script src="scripts/criminalStatistics.js" type="text/javascript"></script>
+    <!-- endbuild -->
 </body>
 </html>

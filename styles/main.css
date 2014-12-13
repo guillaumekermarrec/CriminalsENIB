@@ -28,6 +28,10 @@ body {
   z-index: 10;
 }
 
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
 li{
   list-style-type: none; 
 }

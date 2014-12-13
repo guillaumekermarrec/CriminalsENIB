@@ -9,9 +9,7 @@
  */
 angular.module('projetApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+	$('#mostSearchedCriminals').onload=function(){
+		console.log("--TEST--")
+	};
   });

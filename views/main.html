@@ -1,12 +1,22 @@
 <div class="jumbotron">
-  <h1>Police Nationale</h1>
-  <p class="lead">
-    <img src="images/ENIB.png" alt="ENIB Nationale"><br>
-    Registre des suspects de l'ENIB.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/search">Débuter la recherche!</a></p>
+	<h1>Suspects de l'ENIB</h1>
+	<p class="lead">
+    	<img src="images/ENIB.png" alt="ENIB Nationale"><br>
+  	</p>
+	<div id="carousel-most-searched-criminal" class="carousel slide" data-ride="carousel">
+	  <div id="mostSearchedCriminals" class="carousel-inner"></div>
+	  <!-- <a class="left carousel-control" href="#carousel-most-searched-criminal" role="button" data-slide="prev">
+	    <span class="glyphicon glyphicon-chevron-left"></span>
+	  </a>
+	  <a class="right carousel-control" href="#carousel-most-searched-criminal" role="button" data-slide="next">
+	    <span class="glyphicon glyphicon-chevron-right"></span>
+	  </a> -->
+	</div>
+	<p><a class="btn btn-lg btn-success" ng-href="#/search">Débuter la recherche!</a></p>
 </div>
 
 <div class="row marketing">
   
 </div>
+
+<script src="scripts/dynamicCarousel.js" type="text/javascript"></script>

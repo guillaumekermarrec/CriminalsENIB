@@ -1,4 +1,3 @@
-
 var idElement=0;
 initCarousel();
 
@@ -20,7 +19,6 @@ function valueClassCarouselActiveOrNot(){
 function addElementCarousel(jsonCriminal){
 	var idCarouselElement="itemCriminalCarousel"+idElement;
 	var idCarouselCaption="carousel-caption"+idElement;
-	console.log(jsonCriminal.photo);
 
 	$('#mostSearchedCriminals').append($('<div>', { 
 	    id : idCarouselElement,
@@ -37,8 +35,4 @@ function addElementCarousel(jsonCriminal){
 	}));
 
 	idElement= document.getElementById('mostSearchedCriminals').childNodes.length;
-}
-
-function eraseElementsCarousel(){
-
 }

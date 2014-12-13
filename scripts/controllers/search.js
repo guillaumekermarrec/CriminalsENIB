@@ -14,7 +14,6 @@ angular
 
     // Lorsque le chargement de la base de données a été chargée correctement
     $http.get('criminals/criminals.json').success(function(data) {
-
       //------------------------------------------------------------
       //------------------------ Variables -------------------------
       //------------------------------------------------------------

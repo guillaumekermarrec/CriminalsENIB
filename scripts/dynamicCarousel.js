@@ -1,6 +1,7 @@
 var idElement=0;
 initCarousel();
 
+// Création du carousel
 function initCarousel(){
 	idElement=0;
 	var _MostSearchedCriminals=getMostSearchedCriminals();
@@ -9,6 +10,7 @@ function initCarousel(){
 	};
 }
 
+// Permet d'initialiser le premier element à l'etat actif
 function valueClassCarouselActiveOrNot(){
 	if (idElement==0){
 		return "item active"
@@ -16,6 +18,7 @@ function valueClassCarouselActiveOrNot(){
 	return "item"
 }
 
+// Ajput dynamique dictement dans le DOM de l'image d'un criminel dans le carousel
 function addElementCarousel(jsonCriminal){
 	var idCarouselElement="itemCriminalCarousel"+idElement;
 	var idCarouselCaption="carousel-caption"+idElement;

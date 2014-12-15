@@ -10,6 +10,6 @@
 angular.module('projetApp')
   .controller('MainCtrl', function ($scope) {
 	$('#mostSearchedCriminals').onload=function(){
-		console.log("--TEST--")
+
 	};
   });

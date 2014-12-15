@@ -18,7 +18,7 @@ function valueClassCarouselActiveOrNot(){
 	return "item"
 }
 
-// Ajput dynamique dictement dans le DOM de l'image d'un criminel dans le carousel
+// Ajout dynamique directement dans le DOM de l'image d'un criminel dans le carousel
 function addElementCarousel(jsonCriminal){
 	var idCarouselElement="itemCriminalCarousel"+idElement;
 	var idCarouselCaption="carousel-caption"+idElement;

@@ -10,6 +10,7 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 
 var app = express();
+var mongoose = require('mongoose');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -95,6 +96,55 @@ app.post('/api/logout', requiresAuthentication, function(request, response) {
     var token= request.headers.access_token;
     removeFromTokens(token);
     response.send(200);
+});
+
+mongoose.connect('mongodb://localhost/web4', function(err) {
+    if (err) { throw err; }
+    console.log("successfully logged!");
+});
+ 
+var criminalSchema = new mongoose.Schema({
+  first_name : String,
+  last_name : String,
+  offense : String,
+  gender : String,
+  numberArrestation: String,
+  picture: String
+});
+
+app.post('/search', function(request, response) {
+
+    //console.log(request["body"]);
+    //model du criminal
+    var model= mongoose.model('criminals', criminalSchema);
+
+    //element du champ Nom/Prénom
+    var str_element = request["body"]["name"];
+
+    model.find({'first_name' : new RegExp('^' + str_element)}, function(err, item)
+    {
+        if (err)
+            return console.log(err);
+        console.log(item); //print de l'élément correspondant de la BDD
+
+        response.send(item); //renvoie au client de l'élément
+    });
+}); 
+
+app.get('/search', function(request, response) {
+
+    //console.log(request["body"]);
+    //model du criminal
+    var model= mongoose.model('criminals', criminalSchema);
+
+    model.find(function(err, item)
+    {
+        if (err)
+            return console.log(err);
+        console.log(item); //print de l'élément correspondant de la BDD
+
+        response.send(item); //renvoie au client de l'élément
+    });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

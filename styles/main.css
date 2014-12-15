@@ -67,8 +67,7 @@ ul li img {
 .marketing,
 .footer {
   padding-left: 15px;
-  padding-right: 15px;
-}
+  padding-right: 15px;}
 
 /* Custom page header */
 .header {
@@ -87,6 +86,7 @@ ul li img {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  z-index: 20;
 }
 
 /* Customize container */

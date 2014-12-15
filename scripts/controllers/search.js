@@ -11,9 +11,11 @@ angular
   .module('projetApp')
   .controller('SearchCtrl',['$scope','$http',function ($scope, $http){
     $scope.searchingData = {};
-
+    $scope.criminals;
+    $scope.criminalSelected;
     // Lorsque le chargement de la base de données a été chargée correctement
-    $http.get('criminals/criminals.json').success(function(data) {
+    //$http.get('criminals/criminals.json').success(function(data) {
+    $http.get('/search').success(function(data, status, headers, config) {
       //------------------------------------------------------------
       //------------------------ Variables -------------------------
       //------------------------------------------------------------
@@ -40,7 +42,7 @@ angular
         //------DEBUT A REMPLACER-----
         data.push(angular.copy(criminal));
         //------FIN A REMPLACER-----
-
+        console.log($scope.criminalSelected.id);
         //Permet de masquer le "pop-up" de création de criminel
         $('#criminalModal').modal('hide');
         // Mise à jour les données
@@ -60,9 +62,10 @@ angular
           // Lors de l'affichage du pop-up, on ajoute dynamiquement les informations du criminel
           $('#criminalLightDetail').on('shown.bs.modal', function(){
             var dataToDisplay=
-            '<h2>'+$scope.criminalSelected.firstname+' '+$scope.criminalSelected.lastname+'</h2>'+
-            '<p>'+$scope.criminalSelected.offense+'</p>'+
-            '<a href="#/search/'+$scope.criminalSelected.id+'">Plus d\'information</a>';
+              '<img src=\'./criminals/picture/'+$scope.criminalSelected.picture+'\'>'+
+              '<h2>'+$scope.criminalSelected.first_name+' '+$scope.criminalSelected.last_name+'</h2>'+
+              '<p>'+$scope.criminalSelected.offense+'</p>';
+              // '<a href="#/search/'+$scope.criminalSelected.id+'">Plus d\'information</a>';
             $('#criminalLightDetail .modal-body').html(dataToDisplay);
           });
           // Permet de masque le "pop-up"
@@ -83,17 +86,38 @@ angular
       $scope.$watchCollection('search', function() {
         // Rechercher dans la BDD avec ces informations
         var numberElementSearch=0;
-        console.log($scope.search);
+        var isNotNull=false;
         // La variable key indique l'indice de l'élement dans l'objet $scope.search
         for (var key in Object.keys($scope.search)) {
           // valTmp prend la valeur de la l'objet à un indice key donné
-          var valTmp=$scope.search[Object.keys($scope.search)[key]];
+          //var valTmp=$scope.search[Object.keys($scope.search)[key]];
+          var valTmp=$scope.search[Object.keys($scope.search)[0]];
+          if(valTmp!='')isNotNull=true;
+          //envoie de la valeur en POST
+          $http.post('/search', {'name': valTmp}
+          ).success(function(data, status, headers, config) {
+              if (data.msg != '')
+              {
+                  $scope.criminals=data;
+              }
+              else
+              {
+                  $scope.errors.push(data.error);
+              }
+
+              if(numberElementSearch==0) $scope.getPageNeeded();
+              // mise à jour de la valeur de la bar de précision
+              $scope.accuracyBarValue=numberElementSearch/3*100+"%";
+
+          }).error(function(data, status) { 
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            console.log("error");
+          });
+
           // renvoie le nombre d'élément dans l'objet
           if(valTmp!='' && valTmp!=null) numberElementSearch++;
-          console.log("Champs de recherche-> "+valTmp);
         };
-        // mise à jour de la valeur de la bar de précision
-        $scope.accuracyBarValue=numberElementSearch/3*100+"%";
       });
     });
 
@@ -129,6 +153,7 @@ angular
     };
 
     $scope.getPageNeeded = function(){
+      console.log($scope.criminalsBackUp);
       $scope.numberPageNeeded=[];
       for (var i = 0; i < Math.ceil($scope.criminalsBackUp.length/$scope.itemsPerPage); i++) {
         $scope.numberPageNeeded.push(i);
@@ -140,6 +165,14 @@ angular
       $scope.criminals = $scope.criminalsBackUp.slice(8*$scope.currentPage,8*($scope.currentPage+1));
     }
 
+    $scope.fillForm=function(){
+      document.getElementById('recipient-name').value = $scope.criminalSelected.last_name;
+      document.getElementById('recipient-firstname').value = $scope.criminalSelected.first_name;
+      document.getElementById('message-text').value = $scope.criminalSelected.offense;
+      if($scope.criminalSelected.gender=="male") document.getElementById('recipient-gender-male').checked = true;
+      else document.getElementById('recipient-gender-female').checked = true;
+    };
+
   }]);
 
 // permet d'interdire dans un champs les caractères autre que des chiffres
@@ -149,13 +182,3 @@ function isNumberKey(evt){
         return false;
     return true;
 }
-
-//------------------------------------------------------------
-//--------------------- Upload file --------------------------
-//------------------------------------------------------------
-// function upload() {
-//   document.getElementById('file_upload_form').onsubmit=function() {
-//     document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
-//   }
-// }
-// window.onload=upload;

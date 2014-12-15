@@ -30,6 +30,15 @@
             <label>Taille:</label><br/>
             <input type="number" ng-model="search.size" class="searchBar" placeHolder="cm" onkeypress="return isNumberKey(event)">   
           </div> 
+          <select>
+            <option value="delit_default">Défault</option>
+            <option value="delit_Fond">Détournement de fond</option>
+            <option value="delit_EmploiFictif">Création d'emplois fictifs</option>
+            <option value="delit_Viol">Viol</option>
+            <option value="delit_DetournementEtudiant">Détournement d'étudiant</option>
+            <option value="delit_SequestrationEtudiant">Sequestration d'étudiant</option>
+          </select>
+          <br/><br/>
           <div class="progress">
             <div id="SearchAccuracyBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': accuracyBarValue}">
               Précision
@@ -48,7 +57,10 @@
   			<li ng-repeat="criminal in criminals" class="displayEachCriminal col-lg-3 col-md-4 col-sm-5 col-xs-6">
   				<!-- <table> -->
             <!-- <aside>  -->
-              <img class="smallPicture img-rounded" src="./criminals/picture/{{criminal.picture}}">
+            <div>
+              <img class="smallPicture img-rounded" src="./criminals/picture/{{criminal.picture}}" style="width:100%;">
+              <p style="vertical-align=middle; width:100%;">{{criminal.first_name}} {{criminal.last_name}}</p>
+            </div>
             <!-- </aside>
   					<a href="#/search/{{criminal.id}}">
               <span>{{criminal.firstname}} {{criminal.lastname}}</span>
@@ -58,76 +70,71 @@
   			</li>
   		</ul>
 	</div>
-</div>
-
-<!-- <div flow-init="" flow-files-submitted="$flow.upload()" class="ng-scope">
-  <div class="drop" flow-drop="" ng-class="dropClass">
-    <span class="btn btn-default" flow-btn="">Upload File<input type="file" multiple="multiple" style="visibility: hidden; position: absolute;"></span>
-    <span class="btn btn-default" flow-btn="" flow-directory="" ng-show="$flow.supportDirectory">Upload Folder<input type="file" multiple="multiple" webkitdirectory="webkitdirectory" style="visibility: hidden; position: absolute;"></span>
-    <b>OR</b>
-    Drag And Drop your file here
-  </div>
-
-  <br>
-
-  <div class="well">
-    <a class="btn btn-small btn-success" ng-click="$flow.resume()">Resume all</a>
-    <a class="btn btn-small btn-danger" ng-click="$flow.pause()">Pause all</a>
-    <a class="btn btn-small btn-info" ng-click="$flow.cancel()">Cancel all</a>
-    <span class="label label-info ng-binding">Total Size: 0bytes</span>
-  </div> -->
 
   <div>
+    <nav>
+      <ul class="pagination buttonZIndex">
+        <li ng-class="{disabled: currentPage == 0}">
+            <a href="#search" ng-click="prevPage()">« Prev</a>
+        </li>
+        <li ng-repeat="n in numberPageNeeded" ng-class="{active: n == currentPage}" ng-click="setPage()">
+            <a href="#search" ng-bind="n + 1">1</a>
+        </li>
+        <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+            <a href="#search" ng-click="nextPage()">Next »</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
-    <!-- ngRepeat: file in $flow.files -->
+</div>
+
+<div class="modal fade" id="criminalLightDetail" tabindex="-1" role="dialog" aria-labelledby="criminalLightDetail" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="modal" data-target="#criminalModal" data-whatever="criminal" data-dismiss="modal" ng-click="fillForm()">Mettre à jour le criminel</button>
+        <h4 class="modal-title" id="exampleModalLabel">Détail du profil du criminel {{criminalSelected.lastname}}</h4>
+      </div>       
+      <div class="modal-body"> 
+      </div>
+    </div>
   </div>
 </div>
-<div>
-  <nav>
-    <ul class="pagination buttonZIndex">
-      <li ng-class="{disabled: currentPage == 0}">
-          <a href="#search" ng-click="prevPage()">« Prev</a>
-      </li>
-      <li ng-repeat="n in numberPageNeeded" ng-class="{active: n == currentPage}" ng-click="setPage()">
-          <a href="#search" ng-bind="n + 1">1</a>
-      </li>
-      <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-          <a href="#search" ng-click="nextPage()">Next »</a>
-      </li>
-    </ul>
-  </nav>
+
 </div>
 <div class="modal fade" id="criminalModal" tabindex="-1" role="dialog" aria-labelledby="criminalModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">Ajouter un criminel</h4>
-      </div>
+<!--         <h4 class="modal-title" id="exampleModalLabel">Ajouter un criminel</h4>
+ -->      </div>
         <form role="form">
           <div class="form-group">
             <label for="recipient-name" class="control-label">Nom:</label>
-            <input type="text" class="form-control" id="recipient-name" ng-model="criminal.lastname" required>
+            <input type="text" class="form-control" id="recipient-name" ng-model="criminal.last_name" required>
           </div>
           <div class="form-group">
             <label for="recipient-firstname" class="control-label">Prénom:</label>
-            <input type="text" class="form-control" id="recipient-firstname" ng-model="criminal.firstname" required>
+            <input type="text" class="form-control" id="recipient-firstname" ng-model="criminal.first_name" required>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="date-of-birth" class="control-label">Date de naissance:</label>
             <input type="date" class="form-control" id="recipient-name" ng-model="criminal.birthday" required>   
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="date-of-birth" class="control-label">Sexe:</label><br/>
-            <input type="radio" ng-model="criminal.gender" value="male"/> Homme<br/>
-    		    <input type="radio" ng-model="criminal.gender" value="female"/> Femme
+            <input type="radio" ng-model="criminal.gender" id="recipient-gender-male" value="male"/> Homme<br/>
+    		    <input type="radio" ng-model="criminal.gender" id="recipient-gender-female" value="female"/> Femme
           </div>     
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="message-text" class="control-label">Photo:</label>
             <input name="file" id="file" size="27" type="file" /><br />
             <input type="submit" name="action" value="Upload" /><br />
             <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
-          </div>         
+          </div>  -->        
           <div class="form-group">
             <label for="message-text" class="control-label">Délit:</label>
             <textarea class="form-control" id="message-text" ng-model="criminal.offense" required></textarea>
@@ -137,19 +144,6 @@
   	        <button type="submit" class="btn btn-primary" ng-click="savedata(criminal)" >Ajouter le criminel</button>
   	      </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="criminalLightDetail" tabindex="-1" role="dialog" aria-labelledby="criminalLightDetail" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">  
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">Détail du profil du criminel {{criminalSelected.lastname}}</h4>
-      </div>       
-      <div class="modal-body"> 
       </div>
     </div>
   </div>

@@ -147,6 +147,7 @@ angular
           $scope.getPageNeeded();
       }
     };
+    
     $scope.setPage = function () {
         $scope.currentPage = this.n;
         $scope.getPageNeeded();

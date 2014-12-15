@@ -92,9 +92,8 @@ app.post('/api/login', function(request, response) {
 });
 
 app.post('/api/logout', requiresAuthentication, function(request, response) {
-    console.log("logout-------------------------");
-    var token= request.headers.access_token;
-    removeFromTokens(token);
+//    var token= request.headers.access_token;
+ //   removeFromTokens(token);
     response.send(200);
 });
 
@@ -146,6 +145,32 @@ app.get('/search', function(request, response) {
         response.send(item); //renvoie au client de l'élément
     });
 });
+
+app.put('/search', function(request, response) {
+
+    var model= mongoose.model('criminals', criminalSchema);
+    console.log(request["body"]);
+
+
+    for (var key in request["body"].data) {
+        console.log("Key: " + key);
+        console.log("Value: " + request["body"].data[key]);
+        //var update = {key : request["body"].data[key]};
+
+        var value = request["body"].data[key];
+        var query={};
+        query[key] = value;
+        console.log(query);
+
+
+        model.update({_id : request["body"].data["id"]},{$set : query}, function(err, criminal){
+            if (err)
+                throw err;
+            console.log("updated!");
+        });
+    }
+});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
